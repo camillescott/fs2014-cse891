@@ -1,0 +1,690 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass{article}
+
+    
+    
+    \usepackage{graphicx} % Used to insert images
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{color} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    
+
+    
+    
+    \definecolor{orange}{cmyk}{0,0.4,0.8,0.2}
+    \definecolor{darkorange}{rgb}{.71,0.21,0.01}
+    \definecolor{darkgreen}{rgb}{.12,.54,.11}
+    \definecolor{myteal}{rgb}{.26, .44, .56}
+    \definecolor{gray}{gray}{0.45}
+    \definecolor{lightgray}{gray}{.95}
+    \definecolor{mediumgray}{gray}{.8}
+    \definecolor{inputbackground}{rgb}{.95, .95, .85}
+    \definecolor{outputbackground}{rgb}{.95, .95, .95}
+    \definecolor{traceback}{rgb}{1, .95, .95}
+    % ansi colors
+    \definecolor{red}{rgb}{.6,0,0}
+    \definecolor{green}{rgb}{0,.65,0}
+    \definecolor{brown}{rgb}{0.6,0.6,0}
+    \definecolor{blue}{rgb}{0,.145,.698}
+    \definecolor{purple}{rgb}{.698,.145,.698}
+    \definecolor{cyan}{rgb}{0,.698,.698}
+    \definecolor{lightgray}{gray}{0.5}
+    
+    % bright ansi colors
+    \definecolor{darkgray}{gray}{0.25}
+    \definecolor{lightred}{rgb}{1.0,0.39,0.28}
+    \definecolor{lightgreen}{rgb}{0.48,0.99,0.0}
+    \definecolor{lightblue}{rgb}{0.53,0.81,0.92}
+    \definecolor{lightpurple}{rgb}{0.87,0.63,0.87}
+    \definecolor{lightcyan}{rgb}{0.5,1.0,0.83}
+    
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Homework\_1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=blue,
+      linkcolor=darkorange,
+      citecolor=darkgreen,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+
+    \section{CSE891 Homework 1}
+
+
+    Camille Welcher
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k+kn}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k+kn}{as} \PY{n+nn}{sns}
+\end{Verbatim}
+
+
+    \subsection{Problem 1}
+
+
+    \emph{Consider a multi-core CPU with $p$ cores. The peak
+single-precision performance of each core is 10 GFlops/s. The peak
+bandwidth for the memory bus is 60 GB/s. Assume that you are evaluating
+a polynomial of the form, $x = y^2+z^3+yz$, which can be implemented as
+follows:}
+
+\begin{verbatim}
+    float x[N], y[N], z[N];
+    for (i=0; i < N; ++i)
+        x[i] = y[i]*y[i] + z[i]*z[i]*z[i] + y[i]*z[i];
+\end{verbatim}
+
+
+    \subsubsection{Part A}
+
+
+    \emph{What is the arithmetic intensity (flops/byte) of each iteration of
+the loop? Think of how many bytes need to be transferred over the memory
+bus (both reads and writes) and how many floating point operations are
+performed.}
+
+For each iteration, there are 6 floating point ops (4 mults, 2 adds).
+There is 1 write (the assignment of \texttt{x{[}i{]}}) and there are 2
+reads (\texttt{y{[}i{]}} and \texttt{z{[}i{]}}), assuming that once
+we've fetched a value from memory, we can use the cached value for
+repeated uses; with single precision, each r/w is 4 bytes, so we get 12
+bytes total. This means that our arithmetic intensity is
+$6/12 = .5 \text{ flops/byte}$.
+
+
+    \subsubsection{Part B}
+
+
+    \emph{Plot the theoretical peak performance of the system (GFlops/s) as
+a function of the number of cores, where $1 \leq p \leq 8$. For what
+values of p would this computation's performance be compute-bound and
+for what values would it be memory-bound?}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{X\PYZus{}p} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}
+        \PY{n}{flops\PYZus{}func} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vectorize}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{min}\PY{p}{(}\PY{n}{x} \PY{o}{*} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{60} \PY{o}{*} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+        \PY{n}{Y\PYZus{}f} \PY{o}{=} \PY{n}{flops\PYZus{}func}\PY{p}{(}\PY{n}{X\PYZus{}p}\PY{p}{)}
+        \PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}p}\PY{p}{,} \PY{n}{Y\PYZus{}f}\PY{p}{)}
+        \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{Cores}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{Peak GFlops/S}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{Max GFlop/S as a function of Cores}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{axis}\PY{p}{(}\PY{n}{ymax}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{ymin}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{savefig}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{1a.png}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Homework_1_files/Homework_1_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    In a completely ideal system, GFlops/S would continue to scale with the
+number of cores until saturating the memory bus; there are 2 bytes of
+memory used per 1 flop, so we saturate the memory bus at 3 cores and 30
+GFlops/S. Under 3 cores, we are compute bound, and over, we are memory
+bound.
+
+
+    \subsubsection{Part C}
+
+
+    \emph{Repeat A and B for the same computation but this time in
+double-precision (i.e.~double x{[}N{]}, y{[}N{]}, z{[}N{]}). The peak
+double-precision performance per core is half of its single- precision
+peak - 5 GFlops/s.}
+
+Now, $q=0.25$, as we've doubled the number of bytes. We still saturate
+the memory bus at 3 cores, but peak performance is now limited to 15
+GFlops/S.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{X\PYZus{}p} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}
+        \PY{n}{flops\PYZus{}func} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vectorize}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{min}\PY{p}{(}\PY{n}{x} \PY{o}{*} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{60} \PY{o}{*} \PY{o}{.}\PY{l+m+mi}{25}\PY{p}{)}\PY{p}{)}
+        \PY{n}{Y\PYZus{}f} \PY{o}{=} \PY{n}{flops\PYZus{}func}\PY{p}{(}\PY{n}{X\PYZus{}p}\PY{p}{)}
+        \PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}p}\PY{p}{,} \PY{n}{Y\PYZus{}f}\PY{p}{)}
+        \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{Cores}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{Peak GFlops/S}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{Max GFlop/S as a function of Cores}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{axis}\PY{p}{(}\PY{n}{ymax}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{ymin}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{savefig}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{1c.png}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Homework_1_files/Homework_1_13_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \subsection{Problem 2}
+
+
+    \emph{Consider the same architecture as above - $p$ cores, each with 5
+GFlops/s peak double- precision performance and 60 GB/s memory
+bandwidth. Let there be only a single level of cache with a total
+bandwidth of 300 GB/s (from cache to all cores). Now assume that your
+computational kernel has an arithmetic intensity of 0.125 flops/byte and
+a cache hit ratio of 50\%. Plot the performance of the system as a
+function of the number of cores p.~Denote the ranges for p, where the
+peak performance is bound by the CPU, the memory bandwidth and the cache
+bandwidth (if applicable).}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{B\PYZus{}cache} \PY{o}{=} \PY{l+m+mf}{300.0}
+        \PY{n}{B\PYZus{}mem} \PY{o}{=} \PY{l+m+mf}{60.0}
+        \PY{n}{F\PYZus{}p} \PY{o}{=} \PY{l+m+mf}{5.0}
+        \PY{n}{q} \PY{o}{=} \PY{o}{.}\PY{l+m+mi}{125}
+        
+        \PY{n}{X\PYZus{}p} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{flops\PYZus{}func}\PY{p}{(}\PY{n}{ncores}\PY{p}{,} \PY{n}{cmr}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+        
+            \PY{n}{cpu\PYZus{}perf} \PY{o}{=} \PY{n}{ncores} \PY{o}{*} \PY{n}{F\PYZus{}p}
+            \PY{n+nb}{bytes} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{cpu\PYZus{}perf}\PY{p}{)} \PY{o}{/} \PY{n}{q}
+            \PY{n}{max\PYZus{}cache\PYZus{}bytes} \PY{o}{=} \PY{n}{B\PYZus{}cache} \PY{o}{*} \PY{n}{cmr}
+            \PY{k}{if} \PY{n+nb}{bytes} \PY{o}{\PYZlt{}} \PY{n}{max\PYZus{}cache\PYZus{}bytes}\PY{p}{:}
+                \PY{k}{return} \PY{n}{cpu\PYZus{}perf}
+            \PY{n}{bytes\PYZus{}to\PYZus{}mem} \PY{o}{=} \PY{n+nb}{bytes} \PY{o}{\PYZhy{}} \PY{n}{max\PYZus{}cache\PYZus{}bytes}
+            \PY{k}{if} \PY{n}{bytes\PYZus{}to\PYZus{}mem} \PY{o}{\PYZlt{}} \PY{n}{B\PYZus{}mem}\PY{p}{:}
+                \PY{k}{return} \PY{n}{max\PYZus{}cache\PYZus{}bytes} \PY{o}{*} \PY{n}{q} \PY{o}{+} \PY{n}{bytes\PYZus{}to\PYZus{}mem} \PY{o}{*} \PY{n}{q}
+            \PY{k}{else}\PY{p}{:}
+                \PY{k}{return} \PY{n}{max\PYZus{}cache\PYZus{}bytes} \PY{o}{*} \PY{n}{q} \PY{o}{+} \PY{n}{B\PYZus{}mem} \PY{o}{*} \PY{n}{q}
+        
+        \PY{n}{v\PYZus{}flops\PYZus{}func} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vectorize}\PY{p}{(}\PY{n}{flops\PYZus{}func}\PY{p}{)}
+        
+        \PY{k}{for} \PY{n}{cmr} \PY{o+ow}{in} \PY{p}{[}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{7}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{9}\PY{p}{]}\PY{p}{:}
+            \PY{n}{Y\PYZus{}f} \PY{o}{=} \PY{n}{v\PYZus{}flops\PYZus{}func}\PY{p}{(}\PY{n}{X\PYZus{}p}\PY{p}{,} \PY{n}{cmr}\PY{o}{=}\PY{n}{cmr}\PY{p}{)}
+            \PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}p}\PY{p}{,} \PY{n}{Y\PYZus{}f}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{Cache hit ratio=\PYZob{}\PYZcb{}}\PY{l+s}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{cmr}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{vlines}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{cache bound}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+            
+        \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{Cores}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{Peak GFlops/S}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{Max GFlop/S as a function of Cores}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{axis}\PY{p}{(}\PY{n}{ymax}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{ymin}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{legend}\PY{p}{(}\PY{p}{)}
+        \PY{n}{savefig}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{2.png}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Homework_1_files/Homework_1_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \subsection{Problem 3}
+
+
+    \emph{Assume you are the director of Simulation University's HPC center
+and you are given a \$1 million budget (you may go over the budget by up
+to 2\% if you have a good justification to do so) to purchase a new
+system. You did some market research and found out that the compute
+nodes you like cost \$5,000/node and each interconnect link (together
+with the necessary network hardware) costs \$1000/piece. You did a
+survey among the HPC center! users and (on average) they rated the
+utility of an additional compute node as 5 and the utility of increasing
+the bisection bandwidth of the network by one link as 3. Think of the
+network topologies we discussed in class - bus, ring, 2D/3D torus (or
+k-D torus), hypercube,tree or a fat-tree. How many nodes would you buy
+and how would you connect them? What if the users rate the compute
+vs.~communicate utilities as 5 vs 1?}
+
+
+    \subsubsection{Utility = (5,3)}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{B} \PY{o}{=} \PY{l+m+mf}{1000000.0}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{def} \PY{n+nf}{utility}\PY{p}{(}\PY{n}{D}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{u\PYZus{}d}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{u\PYZus{}b}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{D} \PY{o}{*} \PY{n}{u\PYZus{}d} \PY{o}{+} \PY{n}{b} \PY{o}{*} \PY{n}{u\PYZus{}b}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k}{def} \PY{n+nf}{cost\PYZus{}ring}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{cp}\PY{o}{=}\PY{l+m+mi}{5000}\PY{p}{,} \PY{n}{cl}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n+nb}{int}\PY{p}{(}\PY{n}{p}\PY{p}{)} \PY{o}{*} \PY{n}{cp} \PY{o}{+} \PY{n}{cl} \PY{o}{*} \PY{n}{p}
+         \PY{c}{\PYZsh{} return D, edges, bisect}
+         \PY{k}{def} \PY{n+nf}{stat\PYZus{}ring}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n+nb}{int}\PY{p}{(}\PY{n}{p}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{l+m+mi}{2}
+         \PY{n}{v\PYZus{}cost\PYZus{}ring} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vectorize}\PY{p}{(}\PY{n}{cost\PYZus{}ring}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{X\PYZus{}p} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{300}\PY{p}{)}
+         \PY{n}{c} \PY{o}{=} \PY{n}{v\PYZus{}cost\PYZus{}ring}\PY{p}{(}\PY{n}{X\PYZus{}p}\PY{p}{)}
+         \PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}p}\PY{p}{,} \PY{n}{c}\PY{p}{)}
+         \PY{n}{axis}\PY{p}{(}\PY{n}{ymax}\PY{o}{=}\PY{n}{B}\PY{p}{)}
+         \PY{n}{max\PYZus{}p\PYZus{}ring} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{c}\PY{p}{[}\PY{n}{c} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{B}\PY{p}{]}\PY{p}{)}
+         \PY{k}{print} \PY{l+s}{\PYZsq{}}\PY{l+s}{Max nodes for budget:}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{n}{max\PYZus{}p\PYZus{}ring}
+         \PY{n}{savefig}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{3a.png}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Max nodes for budget: 166
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Homework_1_files/Homework_1_23_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{D}\PY{p}{,} \PY{n}{e}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{n}{stat\PYZus{}ring}\PY{p}{(}\PY{n}{max\PYZus{}p\PYZus{}ring}\PY{p}{)}
+         \PY{k}{print} \PY{l+s}{\PYZsq{}}\PY{l+s}{Utility of ring with \PYZob{}\PYZcb{} nodes:}\PY{l+s}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{max\PYZus{}p\PYZus{}ring}\PY{p}{)}\PY{p}{,} \PY{n}{utility}\PY{p}{(}\PY{n}{D}\PY{p}{,} \PY{n}{b}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Utility of ring with 166 nodes: 421
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k}{def} \PY{n+nf}{cost\PYZus{}torus}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{k}\PY{p}{,} \PY{n}{cp}\PY{o}{=}\PY{l+m+mi}{5000}\PY{p}{,} \PY{n}{cl}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n+nb}{int}\PY{p}{(}\PY{n}{p}\PY{p}{)} \PY{o}{*} \PY{n}{cp} \PY{o}{+} \PY{n}{k} \PY{o}{*} \PY{n}{cl} \PY{o}{*} \PY{n}{p}
+         \PY{c}{\PYZsh{} return D, edges, bisect}
+         \PY{k}{def} \PY{n+nf}{stat\PYZus{}torus}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{k}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n+nb}{int}\PY{p}{(}\PY{n}{k}\PY{p}{)} \PY{o}{*} \PY{n+nb}{int}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{k}\PY{p}{)} \PY{o}{*} \PY{n+nb}{int}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{p}
+         \PY{n}{v\PYZus{}cost\PYZus{}torus} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vectorize}\PY{p}{(}\PY{n}{cost\PYZus{}torus}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{X\PYZus{}p} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{300}\PY{p}{)}
+         \PY{n}{max\PYZus{}p\PYZus{}torus} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{:}
+             \PY{n}{c} \PY{o}{=} \PY{n}{v\PYZus{}cost\PYZus{}torus}\PY{p}{(}\PY{n}{X\PYZus{}p}\PY{p}{,} \PY{n}{k}\PY{p}{)}
+             \PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}p}\PY{p}{,} \PY{n}{c}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{k=\PYZob{}\PYZcb{}}\PY{l+s}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{)}
+             \PY{n}{m} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{c}\PY{p}{[}\PY{n}{c} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{B}\PY{p}{]}\PY{p}{)}
+             \PY{n}{max\PYZus{}p\PYZus{}torus}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{k}\PY{p}{)}\PY{p}{)}
+             \PY{k}{print} \PY{l+s}{\PYZsq{}}\PY{l+s}{Max nodes for budget at k=\PYZob{}\PYZcb{}:}\PY{l+s}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{,} \PY{n}{m}
+         \PY{n}{axis}\PY{p}{(}\PY{n}{ymax}\PY{o}{=}\PY{n}{B}\PY{p}{)}
+         \PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{savefig}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{3b.png}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Max nodes for budget at k=2: 142
+Max nodes for budget at k=3: 125
+Max nodes for budget at k=4: 111
+Max nodes for budget at k=5: 100
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Homework_1_files/Homework_1_26_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k}{for} \PY{n}{p}\PY{p}{,} \PY{n}{k} \PY{o+ow}{in} \PY{n}{max\PYZus{}p\PYZus{}torus}\PY{p}{:}
+             \PY{n}{D}\PY{p}{,} \PY{n}{e}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{n}{stat\PYZus{}torus}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{k}\PY{p}{)}
+             \PY{k}{print} \PY{l+s}{\PYZsq{}}\PY{l+s}{Utility of torus with \PYZob{}\PYZcb{} nodes, k=\PYZob{}\PYZcb{}:}\PY{l+s}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{k}\PY{p}{)}\PY{p}{,} \PY{n}{utility}\PY{p}{(}\PY{n}{D}\PY{p}{,} \PY{n}{b}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Utility of torus with 142 nodes, k=2: 1562
+Utility of torus with 125 nodes, k=3: 1685
+Utility of torus with 111 nodes, k=4: 1776
+Utility of torus with 100 nodes, k=5: 1850
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k}{def} \PY{n+nf}{cost\PYZus{}tree}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{cp}\PY{o}{=}\PY{l+m+mi}{5000}\PY{p}{,} \PY{n}{cl}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n+nb}{int}\PY{p}{(}\PY{n}{p}\PY{p}{)} \PY{o}{*} \PY{n}{cp} \PY{o}{+} \PY{n}{cl} \PY{o}{*} \PY{n}{p} \PY{o}{*} \PY{n}{log2}\PY{p}{(}\PY{n}{p}\PY{p}{)}
+         \PY{c}{\PYZsh{} return D, edges, bisect}
+         \PY{k}{def} \PY{n+nf}{stat\PYZus{}tree}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{log2}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{p}\PY{p}{)} \PY{o}{*} \PY{n+nb}{int}\PY{p}{(}\PY{n}{log2}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{p}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{v\PYZus{}cost\PYZus{}tree} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vectorize}\PY{p}{(}\PY{n}{cost\PYZus{}tree}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{X\PYZus{}p} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{300}\PY{p}{)}
+         \PY{n}{c} \PY{o}{=} \PY{n}{v\PYZus{}cost\PYZus{}tree}\PY{p}{(}\PY{n}{X\PYZus{}p}\PY{p}{)}
+         \PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}p}\PY{p}{,} \PY{n}{c}\PY{p}{)}
+         \PY{n}{axis}\PY{p}{(}\PY{n}{ymax}\PY{o}{=}\PY{n}{B}\PY{p}{)}
+         \PY{n}{max\PYZus{}p\PYZus{}tree} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{c}\PY{p}{[}\PY{n}{c} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{B}\PY{p}{]}\PY{p}{)}
+         \PY{n}{savefig}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{3c.png}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Homework_1_files/Homework_1_29_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{D}\PY{p}{,} \PY{n}{e}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{n}{stat\PYZus{}tree}\PY{p}{(}\PY{n}{max\PYZus{}p\PYZus{}tree}\PY{p}{)}
+         \PY{k}{print} \PY{l+s}{\PYZsq{}}\PY{l+s}{Utility of fat tree with \PYZob{}\PYZcb{} nodes:}\PY{l+s}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{max\PYZus{}p\PYZus{}tree}\PY{p}{)}\PY{p}{,} \PY{n}{utility}\PY{p}{(}\PY{n}{D}\PY{p}{,} \PY{n}{b}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Utility of fat tree with 86 nodes: 193.262647547
+    \end{Verbatim}
+
+    With our budget and the given utility values, I would choose a 5-D
+100-ary torus; this is 100 nodes and 500 links.
+
+
+    \subsubsection{Utility = (5,1)}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{D}\PY{p}{,} \PY{n}{e}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{n}{stat\PYZus{}ring}\PY{p}{(}\PY{n}{max\PYZus{}p\PYZus{}ring}\PY{p}{)}
+         \PY{k}{print} \PY{l+s}{\PYZsq{}}\PY{l+s}{Utility of ring with \PYZob{}\PYZcb{} nodes:}\PY{l+s}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{max\PYZus{}p\PYZus{}ring}\PY{p}{)}\PY{p}{,} \PY{n}{utility}\PY{p}{(}\PY{n}{D}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{u\PYZus{}b}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Utility of ring with 166 nodes: 417
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k}{for} \PY{n}{p}\PY{p}{,} \PY{n}{k} \PY{o+ow}{in} \PY{n}{max\PYZus{}p\PYZus{}torus}\PY{p}{:}
+             \PY{n}{D}\PY{p}{,} \PY{n}{e}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{n}{stat\PYZus{}torus}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{k}\PY{p}{)}
+             \PY{k}{print} \PY{l+s}{\PYZsq{}}\PY{l+s}{Utility of torus with \PYZob{}\PYZcb{} nodes, k=\PYZob{}\PYZcb{}:}\PY{l+s}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{k}\PY{p}{)}\PY{p}{,} \PY{n}{utility}\PY{p}{(}\PY{n}{D}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{u\PYZus{}b}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Utility of torus with 142 nodes, k=2: 994
+Utility of torus with 125 nodes, k=3: 1185
+Utility of torus with 111 nodes, k=4: 1332
+Utility of torus with 100 nodes, k=5: 1450
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{D}\PY{p}{,} \PY{n}{e}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{n}{stat\PYZus{}tree}\PY{p}{(}\PY{n}{max\PYZus{}p\PYZus{}tree}\PY{p}{)}
+         \PY{k}{print} \PY{l+s}{\PYZsq{}}\PY{l+s}{Utility of fat tree with \PYZob{}\PYZcb{} nodes:}\PY{l+s}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{max\PYZus{}p\PYZus{}tree}\PY{p}{)}\PY{p}{,} \PY{n}{utility}\PY{p}{(}\PY{n}{D}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{u\PYZus{}b}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Utility of fat tree with 86 nodes: 107.262647547
+    \end{Verbatim}
+
+    The 5-D torus still wins out, although lower dimensions inch up in
+value. This analysis also doesn't factor in some of the complexity of
+constructing torus networks, or the potential variable bisection
+bandwidths of a fat-tree.
+
+
+    \subsection{Problem 4}
+
+
+    \emph{The outer product is a commonly used tensor operation. The input
+is two vectors of length N and M. The result is a matrix of dimensions N
+by M. In code it would look as follows:}
+
+\begin{verbatim}
+double x[N], y[M], A[N][M];
+    for (i=0; i<N; ++i)
+        for (j=0; j<M; ++j)
+            A[i][j] = x[i]*y[j];
+\end{verbatim}
+
+
+    \subsubsection{Part A}
+
+
+    \emph{Assume that there is only a single level of cache of size 64 KBs,
+a cache line is 64 bytes and the Least Recently Used (LRU) policy is
+adopted for cache eviction. For N = M = 1024, how many cache misses
+would the implementation above incur?}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k}{print} \PY{l+s}{\PYZsq{}}\PY{l+s}{cache holds}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{64000} \PY{o}{/} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{doubles, cache line is 8 doubles}\PY{l+s}{\PYZsq{}}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+cache holds 8000 doubles, cache line is 8 doubles
+    \end{Verbatim}
+
+    \texttt{x{[}N{]}} and \texttt{y{[}N{]}} can both reside entirely in
+cache, consuming 2048 of our 8000 doubles. Misses should only occur when
+writing into \texttt{A}. With a 64 byte cache line that can store 8
+doubles, we get $(M * N) / 8$ misses, or 131,072.
+
+
+    \subsubsection{Part B}
+
+
+    \emph{Repeat A, but now for N = M = 10240.}
+
+    Now we cannot store the entirity of \texttt{x} and \texttt{y} in cache.
+Each of the $N$ iterations of the outer loop will cause a miss, and
+we'll have $M / 8$ misses for accessing \texttt{y} and $M / 8$ misses
+for writing into \texttt{A}, giving a total of $N * (M/4)$ misses, or
+26,214,400 total.
+
+
+    \subsubsection{Part C}
+
+
+    \emph{Based on your insights from 4.A and 4.B, give the pseudo-code for
+a high performance outer product implementation with a reduced number of
+cache misses.}
+
+    Pseudocode:
+
+\begin{verbatim}
+S = floor((cache_size / 8) / 3)
+for s_i in 0..N/S:
+    loadCache(x[s_i*S:(i+1)*S])
+    for s_j in 0..M/S:
+        loadCache(y[s_j*S:(j+1)*S])
+        loadCache(A[s_i*S:(s_i+1)*S, s_j*S:(s_j+1)*S])
+        for ii in s_i*S..(s_i+1)*S:
+            for jj in s_j*S..(s_j+1)*S:
+                A[ii,jj] = x[ii] * y[jj]
+\end{verbatim}
+
+Thus, the idea is to subdivide \texttt{A} into square submatrices, such
+that we can load the ranges of \texttt{x} and \texttt{y} and single row
+of the submatrix of \texttt{A} into memory for each submatrix. Traversal
+order would follow the pattern of the following matrix:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{25}
+         \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{N}\PY{p}{)}\PY{p}{)}
+         \PY{n}{S} \PY{o}{=} \PY{l+m+mi}{5}
+         \PY{n}{z} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{k}{for} \PY{n}{s\PYZus{}i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{/}\PY{n}{S}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{s\PYZus{}j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{/}\PY{n}{S}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{z} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                 \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{s\PYZus{}i} \PY{o}{*} \PY{n}{S}\PY{p}{,} \PY{p}{(}\PY{n}{s\PYZus{}i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{*} \PY{n}{S}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{for} \PY{n}{jj} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{s\PYZus{}j} \PY{o}{*} \PY{n}{S}\PY{p}{,} \PY{p}{(}\PY{n}{s\PYZus{}j} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{*} \PY{n}{S}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{A}\PY{p}{[}\PY{n}{ii}\PY{p}{,}\PY{n}{jj}\PY{p}{]} \PY{o}{=} \PY{n}{z}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{A}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} array([[ 1.,  1.,  1.,  1.,  1.,  2.,  2.,  2.,  2.,  2.],
+                [ 1.,  1.,  1.,  1.,  1.,  2.,  2.,  2.,  2.,  2.],
+                [ 1.,  1.,  1.,  1.,  1.,  2.,  2.,  2.,  2.,  2.],
+                [ 1.,  1.,  1.,  1.,  1.,  2.,  2.,  2.,  2.,  2.],
+                [ 1.,  1.,  1.,  1.,  1.,  2.,  2.,  2.,  2.,  2.],
+                [ 6.,  6.,  6.,  6.,  6.,  7.,  7.,  7.,  7.,  7.],
+                [ 6.,  6.,  6.,  6.,  6.,  7.,  7.,  7.,  7.,  7.],
+                [ 6.,  6.,  6.,  6.,  6.,  7.,  7.,  7.,  7.,  7.],
+                [ 6.,  6.,  6.,  6.,  6.,  7.,  7.,  7.,  7.,  7.],
+                [ 6.,  6.,  6.,  6.,  6.,  7.,  7.,  7.,  7.,  7.]])
+\end{Verbatim}
+        
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
