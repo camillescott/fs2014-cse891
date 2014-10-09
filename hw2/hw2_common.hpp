@@ -1,36 +1,48 @@
 #include <cstdlib>
+#include <ctime>
+#include <iostream>
 
 using namespace std;
 
-template<typename *T> void range_vector(int N) {
-    T* V = new T[N];
-    for (T i=0; i<N; ++i) {
-        V[int(i)] = i;
-    }
-    return V;
-}
-
-long long* ones_vector(int N, int pad) {
-    long long* V = new long long[N + pad];
+template<typename T>
+T * range_vector(int N, int pad) {
+    T * V = new T[N];
     for (int i=0; i<N; ++i) {
-	V[i] = 1;
+        V[i] = (T) i;
     }
-    for (int i=0; i<pad, ++i) {
-	V[n+i] = 0;
+    for (int i=0; i<pad; ++i) {
+        V[N+i] = (T) i;
     }
     return V;
 }
 
-long long* random_vector(int N) {
-    long long* V = new long long[N];
+template<typename T>
+T * ones_vector(int N, int pad) {
+    T * V = new T[N + pad];
+    for (int i=0; i<N; ++i) {
+	V[i] = (T) 1;
+    }
+    for (int i=0; i<pad; ++i) {
+	    V[N+i] = (T) 0;
+    }
+    return V;
+}
+
+template<typename T>
+T * random_vector(int N, int pad) {
+    T * V = new T[N + pad];
     srand(time(NULL));
     for (int i=0; i<N; ++i) {
-	V[i] = rand() % 10;
+	    V[i] = (T) rand() % 10;
+    }
+    for (int i=0; i<pad; ++i) {
+	    V[N+i] = (T) 0;
     }
     return V;
 }
 
-void print_vector(long long* V, int N) {
+template<typename T>
+void print_vector(T * V, int N) {
     cout << "Vector [ ";
     for (int i=0; i<N; ++i) {
         cout << V[i] << " " << flush;
@@ -46,8 +58,9 @@ int get_seg_size(int N, int pid, int num_cpus) {
     return buffer_size;
 }
 
-long long vector_sum(long long * V, int N) {
-    long long sum = 0;
+template<typename T>
+T vector_sum(T * V, int N) {
+    T sum = 0;
     for (int i=0; i<N; ++i) {
 	sum += V[i];
     }
