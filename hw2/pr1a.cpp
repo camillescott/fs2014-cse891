@@ -19,15 +19,15 @@ long long* generate_vector(int N) {
 void print_vector(long long* V, int N) {
     cout << "Vector [ ";
     for (int i=0; i<N; ++i) {
-        cout << V[i] << " ";
+        cout << V[i] << " " << flush;
     }
-    cout << "]" << endl;
+    cout << "]" << endl << flush;
 }
 
 int get_buffer_size(int N, int pid, int num_cpus) {
     int buffer_size = N / num_cpus;
     if (pid == num_cpus-1) {
-        return buffer_size + (N % buffer_size);
+        return buffer_size + (N % num_cpus);
     }
     return buffer_size;
 }
@@ -78,6 +78,7 @@ int main(int argc, char* argv[]) {
         for(int i=0; i<buffer_size; i++) {
             local_sum += V[i];
         }
+	//printf("Local %d\n", local_sum);
 
         long long remote_sum = 0;
         for (int pid=1; pid<num_cpus; ++pid) {
@@ -90,7 +91,7 @@ int main(int argc, char* argv[]) {
             printf("%d\t%d\t%f\n", N, num_cpus, end_t);
         }
         else {
-            printf("-1\t-1\t-1\n");
+            printf("ERROR exp=%d act=%d\n", exp_sum, local_sum);
         }
         //cout << "Finished computation! Result: " << local_sum << endl;
     }
@@ -99,8 +100,10 @@ int main(int argc, char* argv[]) {
         //cout << "CPU " << id << " got buffer starting at " << buffer[0] 
         //    << " and ending at " << buffer[buffer_size-1] << endl;
         //print_vector(buffer, 10);
-        //print_vector(buffer+buffer_size-10, 10);
-        long long local_sum = 0;
+        //if (buffer_size < 25) {
+	//    print_vector(buffer, buffer_size);
+        //}
+	long long local_sum = 0;
         for (int i=0; i<buffer_size; ++i) {
             local_sum += buffer[i];
         }

@@ -1,4 +1,10 @@
-all: pr1
+all: pr1a pr1b
 
-pr1: pr1.cpp
+pr1a: pr1a.cpp
 	mpic++ $< -o $@
+
+pr1b: pr1b.cpp
+	mpic++ $< -o $@
+
+clean:
+	rm -f pr1a pr1b
