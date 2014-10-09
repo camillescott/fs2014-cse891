@@ -50,22 +50,24 @@ int main(int argc, char* argv[]) {
     int N = atoi(argv[2]);
     int buffer_size = get_buffer_size(N, id, num_cpus);
     long long buffer[buffer_size];
-    printf("CPU %d buffer size: %d\n", id, buffer_size);
-    printf("CPU %d N: %d\n", id, N);
+    //printf("CPU %d buffer size: %d\n", id, buffer_size);
+    //printf("CPU %d N: %d\n", id, N);
     MPI_Status stat;
 
     if (id == 0) {
-        printf("Num processors: %d\n", num_cpus);
+        //printf("Num processors: %d\n", num_cpus);
 
         long long* V = generate_vector(N);
-        
         long long exp_sum = 0;
         for (int i=0; i<N; ++i) {
             exp_sum += V[i];
         }
+        /*
         printf("Vector N: %d\n", N);
         printf("Expected result: %lld\n", exp_sum);
         print_vector(V+N-10, 10);
+        */
+        double start_t = MPI_Wtime();
         for (int pid=1; pid<num_cpus; ++pid) {
             int this_bsize = get_buffer_size(N, pid, num_cpus);
             //print_vector(V+pid*buffer_size, this_bsize);
@@ -80,10 +82,17 @@ int main(int argc, char* argv[]) {
         long long remote_sum = 0;
         for (int pid=1; pid<num_cpus; ++pid) {
             MPI_Recv(&remote_sum, 1, MPI_LONG_LONG_INT, pid, 0, MPI_COMM_WORLD, &stat);
-            printf("Recv %lld from CPU %d\n", remote_sum, pid);
+            //printf("Recv %lld from CPU %d\n", remote_sum, pid);
             local_sum += remote_sum;
         }
-        cout << "Finished computation! Result: " << local_sum << endl;
+        double end_t = MPI_Wtime() - start_t;
+        if (local_sum == exp_sum) {
+            printf("%d\t%d\t%f\n", N, num_cpus, end_t);
+        }
+        else {
+            printf("-1\t-1\t-1\n");
+        }
+        //cout << "Finished computation! Result: " << local_sum << endl;
     }
     else {
         MPI_Recv(buffer, buffer_size, MPI_LONG_LONG_INT, 0, 0, MPI_COMM_WORLD, &stat);
