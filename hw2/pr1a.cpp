@@ -40,7 +40,7 @@ int main(int argc, char* argv[]) {
     MPI::Init(argc, argv);
     num_cpus = MPI::COMM_WORLD.Get_size();
     id = MPI::COMM_WORLD.Get_rank();
-
+    double start_t = MPI_Wtime();
     if (num_cpus < atoi(argv[1])) {
         cout << "FATAL: Did not find number of requested CPUs" << endl;
         cout << "Found " << num_cpus << " processors, " << atoi(argv[1]) << " requested." << endl;
@@ -52,7 +52,8 @@ int main(int argc, char* argv[]) {
     long long buffer[buffer_size];
     //printf("CPU %d buffer size: %d\n", id, buffer_size);
     //printf("CPU %d N: %d\n", id, N);
-    MPI_Status stat;
+    MPI_Status recv_stat, send_stat;
+    MPI_Request send_req[num_cpus-1];
 
     if (id == 0) {
         //printf("Num processors: %d\n", num_cpus);
@@ -67,11 +68,11 @@ int main(int argc, char* argv[]) {
         printf("Expected result: %lld\n", exp_sum);
         print_vector(V+N-10, 10);
         */
-        double start_t = MPI_Wtime();
+
         for (int pid=1; pid<num_cpus; ++pid) {
             int this_bsize = get_buffer_size(N, pid, num_cpus);
             //print_vector(V+pid*buffer_size, this_bsize);
-            MPI_Send(V+pid*buffer_size, this_bsize, MPI_LONG_LONG_INT, pid, 0, MPI_COMM_WORLD);
+            MPI_Isend(V+pid*buffer_size, this_bsize, MPI_LONG_LONG_INT, pid, 0, MPI_COMM_WORLD, &send_req[pid-1]);
         }
 
         long long local_sum = 0;
@@ -82,7 +83,8 @@ int main(int argc, char* argv[]) {
 
         long long remote_sum = 0;
         for (int pid=1; pid<num_cpus; ++pid) {
-            MPI_Recv(&remote_sum, 1, MPI_LONG_LONG_INT, pid, 0, MPI_COMM_WORLD, &stat);
+	    MPI_Wait(&send_req[pid-1], &send_stat);
+            MPI_Recv(&remote_sum, 1, MPI_LONG_LONG_INT, pid, 0, MPI_COMM_WORLD, &recv_stat);
             //printf("Recv %lld from CPU %d\n", remote_sum, pid);
             local_sum += remote_sum;
         }
@@ -96,7 +98,7 @@ int main(int argc, char* argv[]) {
         //cout << "Finished computation! Result: " << local_sum << endl;
     }
     else {
-        MPI_Recv(buffer, buffer_size, MPI_LONG_LONG_INT, 0, 0, MPI_COMM_WORLD, &stat);
+        MPI_Recv(buffer, buffer_size, MPI_LONG_LONG_INT, 0, 0, MPI_COMM_WORLD, &recv_stat);
         //cout << "CPU " << id << " got buffer starting at " << buffer[0] 
         //    << " and ending at " << buffer[buffer_size-1] << endl;
         //print_vector(buffer, 10);

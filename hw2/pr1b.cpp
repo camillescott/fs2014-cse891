@@ -17,6 +17,7 @@ int main(int argc, char* argv[]) {
     MPI::Init(argc, argv);
     num_cpus = MPI::COMM_WORLD.Get_size();
     id = MPI::COMM_WORLD.Get_rank();
+    double start_t = MPI_Wtime();
 
     if (num_cpus < atoi(argv[1])) {
         cout << "FATAL: Did not find number of requested CPUs" << endl;
@@ -29,7 +30,6 @@ int main(int argc, char* argv[]) {
     int seg_size = get_seg_size(N, id, num_cpus);
     long long * buffer = new long long[seg_size];
     MPI_Status stat;
-    double start_t = MPI_Wtime();
     if (id == 0) {
         //printf("Num processors: %d\n", num_cpus);
 
@@ -66,11 +66,12 @@ int main(int argc, char* argv[]) {
     }
     
     if (id == 0) {
-        double end_t = MPI_Wtime() - start_t;
         long long exp_sum = 0;
         for (int i=0; i<N; ++i) {
             exp_sum += V[i];
         }
+        double end_t = MPI_Wtime() - start_t;
+
         if (my_sum == exp_sum) {
             printf("%d\t%d\t%f\n", N, num_cpus, end_t);
         }
