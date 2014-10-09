@@ -98,13 +98,13 @@ int main(int argc, char* argv[]) {
         MPI_Recv(buffer, buffer_size, MPI_LONG_LONG_INT, 0, 0, MPI_COMM_WORLD, &stat);
         //cout << "CPU " << id << " got buffer starting at " << buffer[0] 
         //    << " and ending at " << buffer[buffer_size-1] << endl;
-        print_vector(buffer, 10);
-        print_vector(buffer+buffer_size-10, 10);
+        //print_vector(buffer, 10);
+        //print_vector(buffer+buffer_size-10, 10);
         long long local_sum = 0;
         for (int i=0; i<buffer_size; ++i) {
             local_sum += buffer[i];
         }
-        printf("Send %lld from CPU %d\n", local_sum, id);
+        //printf("Send %lld from CPU %d\n", local_sum, id);
         MPI_Send(&local_sum, 1, MPI_LONG_LONG_INT, 0, 0, MPI_COMM_WORLD);
     }
 
