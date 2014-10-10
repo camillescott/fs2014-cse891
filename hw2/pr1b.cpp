@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
     }
 
     double local_sum = vector_sum<double>(buffer, buffer_size);
-    printf("CPU %d SUM %f\n", id, local_sum);
+    //printf("CPU %d SUM %f\n", id, local_sum);
     int m = (int) log2(num_cpus);
     for (int i=0; i<m; ++i) {
 	if (id % int(exp2(i+1)) == 0) {

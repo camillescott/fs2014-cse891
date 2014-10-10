@@ -8,7 +8,7 @@ export OMP_NUM_THREADS=256
 cd $PBS_O_WORKDIR
 make clean; make
 
-rm -f pr1b_results.txt
+rm -f pr1c_results.txt
 
 for np in 1 4 16 64 256;
 do
@@ -20,7 +20,7 @@ do
 	    i=0
 	    while [ "$i" -lt "$NS" ]
 	    do
-		mpirun -np $np ./pr1b $np $N >> pr1b_results.txt
+		mpirun -np $np ./pr1c $np $N >> pr1c_results.txt
 		i=$[$i+1]
 	    done
 	fi
