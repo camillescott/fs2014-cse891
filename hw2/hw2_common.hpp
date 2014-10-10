@@ -50,6 +50,33 @@ void print_vector(T * V, int N) {
     cout << "]" << endl << flush;
 }
 
+template<typename T>
+void print_matrix(T ** A, int N, int M) {
+    for (int i=0; i<N; ++i) {
+	for (int j=0; j<M; ++j) {
+	    cout << A[i][j] << " ";
+	}
+	cout << endl;
+    }   
+}
+
+// N: rows
+// M: columns
+template<typename T>
+T ** ones_matrix(int N, int M, int padN, int padM) {
+    T ** A = new T* [N+padN];
+    for (int i=0; i<N+padN; ++i) {
+	if (i < N) A[i] = ones_vector<T>(M, padM);
+	else {
+	    A[i] = new T[M+padM];
+	    for (int j=0; j<M+padM; ++j) {
+		A[i][j] = (T) 0;
+	    }
+	}
+    }
+    return A;
+}
+
 int get_seg_size(int N, int pid, int num_cpus) {
     int buffer_size = N / num_cpus;
     if (pid == num_cpus-1) {
@@ -66,3 +93,57 @@ T vector_sum(T * V, int N) {
     }
     return sum;
 }
+
+template<typename T>
+T ** naive_mat_mult(T** A, T** B, int N) {
+    // Allocate result matrix
+    T ** C = new T*[N];
+    for (int i=0; i<N; ++i) C[i] = new T[N];
+
+    for (int i=0; i<N; ++i) {
+	for (int j=0; j<N; ++j) {
+	    for (int k=0; k<N; ++k) {
+		C[i][j] += A[i][k] * B[k][j];
+	    }
+	}
+    }
+    return C;
+}
+
+template<typename T>
+T ** naive_blocked_mat_mult(T** A, T** B, int N, int block_size) {
+    // Allocate result matrix
+    T ** C = new T*[N];
+    for (int i=0; i<N; ++i) C[i] = new T[N];
+
+    for (int bi=0; bi<N/block_size; ++bi) {
+	int block_row = bi * block_size;
+	for (int bj=0; bj<N/block_size; ++bj) {
+	    int block_column = bj * block_size;
+	    //for (int bk=0; bk<N/block_size; ++bk) {
+		for (int i=block_row; i<block_row+block_size; ++i) {
+		    for (int j=block_column; j<block_column+block_size; ++j) {
+			for (int bk=0; bk<N/block_size; ++bk) {
+			int k_start = bk * block_size;
+			//cout << "Fill [" << i << "," << j << "]\n" << endl;
+			for (int k=k_start; k<k_start+block_size; ++k) {
+			    C[i][j] += A[i][k] * B[k][j];
+			}
+		    }
+		}
+	    }
+	}
+    }
+    return C;
+}
+
+
+
+
+
+
+
+
+
+
+
