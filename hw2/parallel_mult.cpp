@@ -6,6 +6,8 @@
 #include "hw2_common.hpp"
 #include "mpi.h"
 
+#define BLOCK 16
+
 using namespace std;
 
 int main(int argc, char* argv[]) {
@@ -54,7 +56,7 @@ int main(int argc, char* argv[]) {
 	    A_ij[i] = &(X_i[i][b*block_size]);
 	    B_ij[i] = &(Y_j[i][b*block_size]);
 	}
-	double ** tmp = naive_blocked_mat_mult(A_ij, B_ij, block_size, 2);
+	double ** tmp = naive_blocked_mat_mult(A_ij, B_ij, block_size, BLOCK);
 	for (int i=0; i<block_size; ++i) {
 	    for (int j=0; j<block_size; ++j) {
 		C_ij[i][j] += tmp[i][j];
