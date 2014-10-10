@@ -77,11 +77,17 @@ T ** ones_matrix(int N, int M, int padN, int padM) {
     return A;
 }
 
+/*
+ * Alloc Matrix in contiguous memory for easy sends
+ * Code modified from 
+ * http://stackoverflow.com/questions/5901476/sending-and-receiving-2d-array-over-mpi
+ */
 template<typename T>
 T ** alloc_matrix(int N, int M, T fill) {
-    T ** A = new T* [N];
+    T * data = (T *) malloc(N * M * sizeof(T));
+    T ** A = (T **) malloc(N * sizeof(T));
     for (int i=0; i<N; ++i) {
-	A[i] = new T[M];
+	A[i] = &(data[M*i]);
 	for (int j=0; j<M; ++j) {
 	    A[i][j] = fill;
 	}
