@@ -77,6 +77,18 @@ T ** ones_matrix(int N, int M, int padN, int padM) {
     return A;
 }
 
+template<typename T>
+T ** alloc_matrix(int N, int M, T fill) {
+    T ** A = new T* [N];
+    for (int i=0; i<N; ++i) {
+	A[i] = new T[M];
+	for (int j=0; j<M; ++j) {
+	    A[i][j] = fill;
+	}
+    }
+    return A;
+}
+
 int get_seg_size(int N, int pid, int num_cpus) {
     int buffer_size = N / num_cpus;
     if (pid == num_cpus-1) {
@@ -137,7 +149,18 @@ T ** naive_blocked_mat_mult(T** A, T** B, int N, int block_size) {
     return C;
 }
 
-
+timespec diff(timespec start, timespec end)
+{
+    timespec temp;
+    if ((end.tv_nsec-start.tv_nsec)<0) {
+	temp.tv_sec = end.tv_sec-start.tv_sec-1;
+	temp.tv_nsec = 1000000000+end.tv_nsec-start.tv_nsec;
+    } else {
+	temp.tv_sec = end.tv_sec-start.tv_sec;
+	temp.tv_nsec = end.tv_nsec-start.tv_nsec;
+    }
+    return temp;
+}
 
 
 
