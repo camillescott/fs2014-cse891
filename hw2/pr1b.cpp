@@ -26,57 +26,42 @@ int main(int argc, char* argv[]) {
     }
 
     int N = atoi(argv[2]);
-    long long * V;
-    int seg_size = get_seg_size(N, id, num_cpus);
-    long long * buffer = new long long[seg_size];
+    int pad = N % num_cpus;
+    int buffer_size = (N+pad) / num_cpus;
+    double * buffer;
     MPI_Status stat;
     if (id == 0) {
-        //printf("Num processors: %d\n", num_cpus);
 
-        V = ones_vector(N);
+        double * V = ones_vector<double>(N, pad);
 	for (int pid=1; pid<num_cpus; ++pid) {
-	    //MPI_Request req;
-	    MPI_Send(V+pid*seg_size, get_seg_size(N, pid, num_cpus), MPI_LONG_LONG_INT, pid, 0, MPI_COMM_WORLD);
-	    //MPI_Request_free(&req);
+	    MPI_Send(V+pid*buffer_size, buffer_size, MPI_DOUBLE, pid, 0, MPI_COMM_WORLD);
 	}
 	buffer = V;
     } else {
-	MPI_Recv(buffer, seg_size, MPI_LONG_LONG_INT, 0, 0, MPI_COMM_WORLD, &stat);
-	//printf("Recv on $d\n", id);
+	buffer = new double[buffer_size];	
+	MPI_Recv(buffer, buffer_size, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, &stat);
     }
 
-    long long my_sum = 0;
-    for (int i=0; i<seg_size; ++i) {
-	my_sum += buffer[i];
-    }
-    //printf("CPU %d sum %lld\n", id, my_sum);
-    //printf("CPU %d stat %d\n", id, my_sum==seg_size);
-
+    double local_sum = vector_sum<double>(buffer, buffer_size);
+    printf("CPU %d SUM %f\n", id, local_sum);
     int m = (int) log2(num_cpus);
     for (int i=0; i<m; ++i) {
 	if (id % int(exp2(i+1)) == 0) {
-	    long long other_sum;
-	    MPI_Recv(&other_sum, 1, MPI_LONG_LONG_INT, id+int(exp2(i)), 0, MPI_COMM_WORLD, &stat);
-	    my_sum += other_sum;
-	    //printf("Recv %lld on %d [L %d]\n", other_sum, id, i);
+	    double other_sum;
+	    MPI_Recv(&other_sum, 1, MPI_DOUBLE, id+int(exp2(i)), 0, MPI_COMM_WORLD, &stat);
+	    local_sum += other_sum;
 	} else if (id % int(exp2(i+1)) == int(exp2(i))) {
-	    //printf("Send %lld on %d to %d [L %d]\n", my_sum, id, id-int(exp2(i)), i);
-	    MPI_Send(&my_sum, 1, MPI_LONG_LONG_INT, id-int(exp2(i)), 0, MPI_COMM_WORLD);
+	    MPI_Send(&local_sum, 1, MPI_DOUBLE, id-int(exp2(i)), 0, MPI_COMM_WORLD);
 	}
     }
     
     if (id == 0) {
-        long long exp_sum = 0;
-        for (int i=0; i<N; ++i) {
-            exp_sum += V[i];
-        }
-        double end_t = MPI_Wtime() - start_t;
-
-        if (my_sum == exp_sum) {
+	double end_t = MPI_Wtime() - start_t;
+        if (local_sum == (double) N) {
             printf("%d\t%d\t%f\n", N, num_cpus, end_t);
         }
         else {
-            printf("ERROR exp=%d act=%d\n", exp_sum, my_sum);
+            printf("ERROR exp=%f act=%f\n", (double) N, local_sum);
         }
  	
     }
