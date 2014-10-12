@@ -104,7 +104,7 @@ int main(int argc, char* argv[]) {
     if (pid == 0) {
 	double end_t = MPI_Wtime() - start_t;
 	printf("%d\t%d\t%f\n", N, P, end_t);
-	print_matrix<double>(C, N, N);
+	//print_matrix<double>(C, N, N);
     }
 
     MPI_Finalize();
