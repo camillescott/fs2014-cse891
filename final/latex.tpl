@@ -31,7 +31,10 @@ $if(graphics)$
 $endif$
 
 $if(title)$
-\title{\bigskip \bigskip $title$}
+\title{\bigskip \bigskip $title$
+$if(subtitle)$
+\\ \vspace{2 mm} {\large $subtitle$}
+$endif$}
 $endif$ 
 
 %\author{$for(author)$$author$$sep$\\$endfor$}

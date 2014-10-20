@@ -1,8 +1,10 @@
 ---
 title: Final Project Abstract
+subtitle: for CSE891, FS2014
 author: 
 - name: Camille Welcher
   affiliation: Michigan State University
+  email: welcherc@msu.edu
 date: October 20, 2014
 ...
 
