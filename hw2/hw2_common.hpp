@@ -131,8 +131,7 @@ T ** naive_mat_mult(T** A, T** B, int N) {
 template<typename T>
 T ** naive_blocked_mat_mult(T** A, T** B, int N, int block_size) {
     // Allocate result matrix
-    T ** C = new T*[N];
-    for (int i=0; i<N; ++i) C[i] = new T[N];
+    T ** C = alloc_matrix<double>(N, N, 0.0);
 
     for (int bi=0; bi<N/block_size; ++bi) {
 	int block_row = bi * block_size;
@@ -153,6 +152,15 @@ T ** naive_blocked_mat_mult(T** A, T** B, int N, int block_size) {
 	}
     }
     return C;
+}
+
+template<typename T>
+void mat_inc_sum(T** A, T** B, int N) {
+    for (int i=0; i<N; ++i) {
+        for (int j=0; j<N, ++j) {
+            C[i][j] += B[i][j];
+        }
+    }
 }
 
 timespec diff(timespec start, timespec end)

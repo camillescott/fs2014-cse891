@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
 
     A_ij = alloc_matrix<double>(block_size, block_size, (double) 1.0);
     B_ij = alloc_matrix<double>(block_size, block_size, (double) 1.0);
-    C_ij = alloc_matrix<double>(block_size, block_size, 0.0);
+    C_ij = naive_blocked_mat_mult(A_ij, B_ij, block_size, BLOCK);
     
     MPI_Comm_split(MPI_COMM_WORLD, i_C, pid, &row_comm);
     MPI_Comm_split(MPI_COMM_WORLD, j_C, pid, &col_comm);
@@ -44,22 +44,22 @@ int main(int argc, char* argv[]) {
 
     // Distribute locally produced blocks out to all processors
     for (int i=0; i<block_size; ++i) {
-	MPI_Allgather(A_ij[i], block_size, MPI_DOUBLE, X_i[i], block_size, MPI_DOUBLE, row_comm);
-	MPI_Allgather(B_ij[i], block_size, MPI_DOUBLE, Y_j[i], block_size, MPI_DOUBLE, col_comm);
+        MPI_Allgather(C_ij[i], block_size, MPI_DOUBLE, X_i[i], block_size, MPI_DOUBLE, row_comm);
+        MPI_Allgather(C_ij[i], block_size, MPI_DOUBLE, Y_j[i], block_size, MPI_DOUBLE, col_comm);
     }
 
     // Do local matrix mults to fill C_ij
     for (int b=0; b<N_block; ++b) {
 	// Instead of copying data, just redirect some pointers and use the local
 	// A and B block matrices, seeing as we've already distributed their data
-	for (int i=0; i<block_size; ++i) {
-	    A_ij[i] = &(X_i[i][b*block_size]);
-	    B_ij[i] = &(Y_j[i][b*block_size]);
-	}
-	double ** tmp = naive_blocked_mat_mult(A_ij, B_ij, block_size, BLOCK);
-	for (int i=0; i<block_size; ++i) {
-	    for (int j=0; j<block_size; ++j) {
-		C_ij[i][j] += tmp[i][j];
+        for (int i=0; i<block_size; ++i) {
+	        A_ij[i] = &(X_i[i][b*block_size]);
+	        B_ij[i] = &(Y_j[i][b*block_size]);
+	    }
+	    double ** tmp = naive_blocked_mat_mult(A_ij, B_ij, block_size, BLOCK);
+	    for (int i=0; i<block_size; ++i) {
+	        for (int j=0; j<block_size; ++j) {
+                C_ij[i][j] += tmp[i][j];
 	    }
 	}
     }
