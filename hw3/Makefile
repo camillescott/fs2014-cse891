@@ -1,5 +1,8 @@
 all: count-sort-inner count-sort-outer std-qsort std-qsort-phi count-sort-phi
 
+html: Homework_3.ipynb
+	nbconvert Homework_3.ipynb --to slides
+
 count-sort-inner: count-sort.c
 	icc -lrt -O3 -openmp -DLOOP=1 -o $@ $<
 
