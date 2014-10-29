@@ -1,5 +1,5 @@
 #!/bin/sh -login
-#PBS -l walltime=00:10:00,nodes=1:ppn=20
+#PBS -l walltime=00:10:00,nodes=1:ppn=20,feature=intel14
 #PBS -N cse891_pr1b
 
 NS=10
