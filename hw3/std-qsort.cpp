@@ -2,6 +2,10 @@
 #include <cstdlib>
 #include <ctime>
 
+#ifndef MIC
+#define MIC 0
+#endif
+
 using namespace std;
 
 timespec diff(timespec start, timespec end)
@@ -17,7 +21,7 @@ timespec diff(timespec start, timespec end)
     return temp;
 }
 
-int comp(const void * a, const void * b) {
+int __attribute__((target(mic))) comp(const void * a, const void * b) {
     return ( *(int*)a - *(int*)b );
 }
 
@@ -33,7 +37,7 @@ int main(int argc, char ** argv) {
     for (int i=0; i<N; ++i) {
         A[i] = (int) rand();
     }
-
+    #pragma offload target(mic) if (MIC==1) inout(A:length(N))
     qsort(A, N, sizeof(int), comp);
 
     for (int i=1; i<N; ++i) {
