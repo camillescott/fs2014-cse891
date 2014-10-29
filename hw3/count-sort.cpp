@@ -38,7 +38,6 @@ int main(int argc, char ** argv) {
     for (int i=0; i<N; ++i) {
         A[i] = (int) rand();
     }
-    
     omp_count_sort(A, N, P);
     for (int i=1; i<N; ++i) {
         if (A[i] < A[i-1]) {
@@ -60,6 +59,8 @@ void omp_count_sort(int a[], int n, int P) {
     int count = 0;
     int *temp = new int[n];
     omp_set_num_threads(P);
+
+    #pragma offload target(mic)
     #pragma omp parallel for if (LOOP==0) private(count)
     for (i = 0; i < n; i++) { 
         count = 0;

@@ -1,6 +1,8 @@
 #!/bin/sh -login
-#PBS -l walltime=00:10:00,nodes=1:ppn=20,feature=intel14
+#PBS -l walltime=00:20:00,nodes=1:ppn=20,feature=intel14
 #PBS -N cse891_pr1b
+
+module swap GNU Intel/13.0.1.117
 
 NS=10
 export OMP_NUM_THREADS=20
@@ -17,7 +19,7 @@ do
 	while [ "$i" -lt "$NS" ]
 	do
 	    ./count-sort-inner $N ${np} >> count-inner.results.tsv
-	    ./count-sort-outer $N ${np} >> count-outer-results.tsv
+	    ./count-sort-outer $N ${np} >> count-outer.results.tsv
 	    i=$(( $i + 1 ))
 	done
     done
